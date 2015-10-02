@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
 
 /**
  *
- * @author acca
+ * @author Daniele Santoro <daniele.santoro@studenti.unitn.it>
  */
 public interface Calculator extends Remote {    
     int sum(int add1, int add2) throws RemoteException;
