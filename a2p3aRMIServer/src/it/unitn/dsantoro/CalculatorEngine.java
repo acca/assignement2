@@ -5,7 +5,6 @@
  */
 package it.unitn.dsantoro;
 
-import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -32,10 +31,10 @@ public class CalculatorEngine implements Calculator {
             System.setSecurityManager(new SecurityManager());
         }
         try {
-            String name = "Compute";
+            String name = "Calculator";
             Calculator calculator = new CalculatorEngine();
             Calculator stub = (Calculator) UnicastRemoteObject.exportObject(calculator, 0);
-            Registry registry = LocateRegistry.getRegistry();
+            Registry registry = LocateRegistry.createRegistry(1099);
             registry.rebind(name, stub);
             System.out.println("CalculatorEngine bound");
         } catch (Exception e) {
@@ -50,7 +49,11 @@ public class CalculatorEngine implements Calculator {
     }
 
     @Override
-    public float bmi(int weight, int height) throws RemoteException {
-        return weight / height;
+    public double bmi(int weight, int height) throws RemoteException {        
+        double w = (double)weight;
+        double h = (double)height;
+        double bmi = ( w /((h*h)/10000) );
+        System.out.println(bmi);
+        return bmi;
     }
 }

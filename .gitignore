@@ -6,3 +6,5 @@
 # Ignore binary files and build folders
 *.class
 *build
+/a2p3aRMIClient/nbproject/private/
+/a2p3aRMIServer/nbproject/private/
