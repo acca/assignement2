@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
  *
  * @author acca
  */
-public interface Calculator extends Remote {
-    int add() throws RemoteException;
+public interface Calculator extends Remote {    
+    int sum(int add1, int add2) throws RemoteException;
+    float bmi(int weight, int height) throws RemoteException;
 }

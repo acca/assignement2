@@ -20,12 +20,7 @@ public class CalculatorEngine implements Calculator {
     public CalculatorEngine() throws RemoteException {
         super();
     }
-    
-    @Override
-    public int add() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+  
     /**
      * @param args the command line arguments
      */
@@ -48,4 +43,14 @@ public class CalculatorEngine implements Calculator {
             e.printStackTrace();
         }
     }   
+
+    @Override
+    public int sum(int add1, int add2) throws RemoteException {
+        return add1 + add2;
+    }
+
+    @Override
+    public float bmi(int weight, int height) throws RemoteException {
+        return weight / height;
+    }
 }
