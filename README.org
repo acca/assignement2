@@ -1,0 +1,37 @@
+#+TITLE: Extending the simple RMI Client and Server
+#+AUTHOR: Daniele Santoro
+#+DATE: 02/10/2015
+
+* Introduction
+  Code and documentation are present at this link: https://github.com/acca/assignment2.
+
+
+  In respect to the proposed applications RMIClient and RMIServer the two extensions implemented in this assignment respectively add:
+
+  1) Passing of primitive parameter to the server: Basically this approach does not have many difficulties since the primitive parameters are passed directly via copy to the remote method. The remote method compute the result depending on the operation asked by the client (called method) and then return back again a primitive data-type.
+
+  2) Passing an object to a remote method: The approach is different in this case, since Java pass the parameter making a copy only if it implements the /Serializable/ interface. The automatic mechanism of Java behind the RMI architecture permits to transform the object into a string representation to carry out it on the network and import back into an object representation in memory on the server. The same process is done when the object comes back to the client.
+
+* Implementation
+  The implementation can be summarized in two parts:
+  1) In the first case I've simply created a client which takes some input from the user and call two methods on the remote object/server: =sum= and =bmi=.
+
+  2) The second part was more trivial, the most interesting parts in my opinion are:
+     - /Start two servers instead of one/: My solution in this case is to implement a =ServerStarter= which gets the RMI Register and ten register to it two instances of the same object: =SignerServer=.
+       The two server have an instance variable =name= used to identify the instance of the server and to personalize the signature in the =sign= method.
+
+     - /Pass an object as parameter to the remote server:/ This has been done creating the =Notebook= object as an implementation of the =Serializable= interface. In this case Java copies the object automatically using serialization and un-serialization internal mechanism.
+
+* Deployment
+  The code is packaged as three different Netbeans projects and they must be run inside the IDE. In both cases the file describing the Java security policies have to be loaded. It can be simply moved on the default folder depending on the OS: =$HOME/.java.policy=.
+  1) First part
+     1) Run the server first =CalculatorEngine=
+     2) Run the client =CalculatorClient=
+  2) Second part
+     1) Run the server starter =ServerStarter=
+     2) Run the Client file =NootebookClient=
+
+* Comments and notes
+  I've found few difficulties in the part 3b understanding if the client and server can be two different applications or not. I've started developing two different application but then I've found that the class representing the object which should be moved via RMI between client and server, must be present in both the applications, probably sharing an interface. Otherwise, in the [[http://docs.oracle.com/javase/tutorial/rmi/overview.html][Java tutorial]] shared during the class both client and server are in different packages but in the same project so I've changed to reflect that organization.
+
+  Also I was not able to compile and deploy my application (part b) from the command line and run it in two different machines.
